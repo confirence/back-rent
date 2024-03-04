@@ -1,10 +1,57 @@
-export const BookingController = {
-   handleBooking: (req, res) => {
-      const bookingData = req.body;
-      // Ваш код обработки данных о бронировании
-      console.log('Данные о бронировании с клиента:', bookingData);
+import BookingModel from '../models/Booking.js';
 
-      // Отправка ответа об успешном выполнении
-      res.json({ message: 'Бронирование успешно обработано на сервере' });
+export const BookingController = {
+   handleBooking: async (req, res) => {
+      const bookingData = req.body;
+
+      try {
+         // Сохранение данных о бронировании в базе данных
+         const newBooking = await BookingModel.create(bookingData);
+
+         console.log('Данные о бронировании сохранены:', newBooking);
+
+         // Отправка ответа об успешном выполнении
+         res.json({ message: 'Бронирование успешно обработано на сервере' });
+      } catch (err) {
+         console.error(err);
+         res.status(500).json({
+            message: 'Ошибка при сохранении данных о бронировании',
+         });
+      }
    },
 };
+
+// import BookingModel from '../models/Booking.js';
+
+// export const BookingController = {
+//    handleBooking: async (req, res) => {
+//       const bookingData = req.body;
+
+//       try {
+//          // Сохранение данных о бронировании в базе данных
+//          const newBooking = await BookingModel.create(bookingData);
+
+//          console.log('Данные о бронировании сохранены:', newBooking);
+
+//          // Отправка ответа об успешном выполнении
+//          res.json({ message: 'Бронирование успешно обработано на сервере' });
+//       } catch (err) {
+//          console.error(err);
+//          res.status(500).json({
+//             message: 'Ошибка при сохранении данных о бронировании',
+//          });
+//       }
+//    },
+
+//    getAllBookings: async (req, res) => {
+//       try {
+//          const bookings = await BookingModel.find();
+//          res.json(bookings);
+//       } catch (err) {
+//          console.error(err);
+//          res.status(500).json({
+//             message: 'Ошибка при получении данных о бронированиях',
+//          });
+//       }
+//    },
+// };
