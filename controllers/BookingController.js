@@ -19,6 +19,17 @@ export const BookingController = {
          });
       }
    },
+   getAll: async (req, res) => {
+      try {
+         const bookings = await BookingModel.find().exec();
+         res.json(bookings);
+      } catch (err) {
+         console.error(err);
+         res.status(500).json({
+            message: 'Не удалось получить данные о бронированиях',
+         });
+      }
+   },
 };
 
 // import BookingModel from '../models/Booking.js';

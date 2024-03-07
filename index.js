@@ -65,6 +65,7 @@ app.patch(
 );
 
 app.post('/booking', BookingController.handleBooking);
+app.get('/booking', BookingController.getAll);
 
 app.listen(4444, (err) => {
    if (err) {

@@ -32,6 +32,14 @@ const BookingSchema = new mongoose.Schema(
             },
          },
       ],
+      title: {
+         type: String,
+         required: true,
+      },
+      tags: {
+         type: Array,
+         required: true,
+      },
    },
    {
       timestamps: true,
