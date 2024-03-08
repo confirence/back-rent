@@ -1,6 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
+import { config } from 'dotenv';
+config(); // не было
+
 import cors from 'cors';
 
 import multer from 'multer';
@@ -17,9 +20,7 @@ import { BookingController } from './controllers/BookingController.js';
 // import User from './models/User.js';
 
 mongoose
-   .connect(
-      'mongodb+srv://admin:12345@cluster0.g3ndpwv.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0',
-   )
+   .connect(process.env.MONGODB_URI)
    .then(() => console.log('DB ok'))
    .catch((err) => console.log('DB error', err));
 
@@ -67,7 +68,7 @@ app.patch(
 app.post('/booking', BookingController.handleBooking);
 app.get('/booking', BookingController.getAll);
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
    if (err) {
       return console.log(err);
    }
